@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RapiExpress</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="assets/img/logo.png" alt="Logo RapiExpress" class="logo-img">
+                <span>RapiExpress</span>
+            </a>
+            
+            <!-- Menú desktop -->
+            <ul class="desktop-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="/RapiExpress/assets/includes/servicios.php">Servicios</a></li>
+                <li><a href="#nosotros">Sobre Nosotros</a></li>
+                <li><a href="/assets/includes/servicios.html">Calculadora</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#" id="loginBtn">Login</a></li>
+            </ul>
+            
+            <!-- Botón para móvil -->
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+        
+        <!-- Menú móvil -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#nosotros">Sobre Nosotros</a></li>
+            <li><a href="#calculadora">Calculadora</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#" id="mobileLoginBtn">Login</a></li>
+        </ul>
+    </header>
+    
+
+    <main class="dashboard-container">
+        <h1>Bienvenido, <span id="user-name"></span></h1>
+        <div class="dashboard-grid">
+            <!-- Aquí puedes agregar las opciones del dashboard -->
+        </div>
+        <button id="logoutBtn" class="logout-button">Cerrar Sesión</button>
+    </main>
+
+    <script>
+        // Verificar si hay sesión
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = sessionStorage.getItem('user_name');
+            if(!userName) {
+                window.location.href = '../index.html';
+            } else {
+                document.getElementById('user-name').textContent = userName;
+            }
+            
+            // Cerrar sesión
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                fetch('../assets/includes/logout.php')
+                    .then(() => {
+                        sessionStorage.removeItem('user_name');
+                        window.location.href = '../index.html';
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
